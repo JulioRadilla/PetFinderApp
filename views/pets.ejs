@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Finder App</title>
+    <link rel="stylesheet" href="/public/css/style.css">
+    <script src="/public/js/main.js"></script>
+</head>
+<body>
+    <h1>Pets Lost</h1>
+    <ul>
+    <% pets.forEach( el => { %>
+            <li class='petItem' data-id='<%=el._id%>'>
+                <!-- Useful for when the pet is found we can use the same logic <span class='<%= el.found === true ? 'completed' : 'not'%>'><%= el.todo %></span> -->
+                <span class='del'> Delete </span>
+                <span>Species: <%=el.petSpecies%></span>
+                <span>Name: <%=el.petName%></span>
+                <span>Gender: <%=el.petGender%></span>
+                <span>Body Size: <%=el.petBody%></span>
+                <span>Color: <%=el.petColor%></span>
+                <span>Location: <%=el.petLocation%></span>
+            </li>
+    <% }) %>    
+    </ul>
+
+    <form action="/pets/createPet" method='POST'>
+        <h1>Have you lost a Pet?</h1>
+        <h1>Fill in the form below to help find your furry friend!</h1>
+        <h2>Species: <input type="text" placeholder="pets species" name="petSpecies"></h2>
+        <h2>Name: <input type="text" placeholder="pets name" name="petName"></h2>
+        <h2>Gender: <input type="text" placeholder="pets gender" name="petGender"></h2>
+        <h2>Body Size: <input type="text" placeholder="pets body size ex: small,medium" name="petBody"></h2>
+        <h2>Color: <input type="text" placeholder="pets color" name="petColor"></h2>
+        <h2>Location: <input type="text" placeholder="pets location ex:Chicago,IL" name="petLocation"></h2>
+        <input type="submit">
+    </form>
+
+    <a href="/logout">Logout</a>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
