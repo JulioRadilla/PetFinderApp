@@ -21,11 +21,12 @@
                 <span>Body Size: <%=el.petBody%></span>
                 <span>Color: <%=el.petColor%></span>
                 <span>Location: <%=el.petLocation%></span>
+                <span>Img: <img src="<%= el.petImg %>" width="90" height="90" alt="pet-image"></span>
             </li>
     <% }) %>    
     </ul>
 
-    <form action="/pets/createPet" method='POST'>
+    <form action="/pets/createPet" method="POST" enctype="multipart/form-data">
         <h1>Have you lost a Pet?</h1>
         <h1>Fill in the form below to help find your furry friend!</h1>
         <h2>Species: <input type="text" placeholder="pets species" name="petSpecies"></h2>
@@ -34,6 +35,7 @@
         <h2>Body Size: <input type="text" placeholder="pets body size ex: small,medium" name="petBody"></h2>
         <h2>Color: <input type="text" placeholder="pets color" name="petColor"></h2>
         <h2>Location: <input type="text" placeholder="pets location ex:Chicago,IL" name="petLocation"></h2>
+        <h2>Pet pic: <input type="file" name="image" value=""></h2>
         <input type="submit">
     </form>
 
