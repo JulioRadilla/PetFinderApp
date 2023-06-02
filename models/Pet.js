@@ -28,6 +28,10 @@ const PetSchema = new mongoose.Schema({
       petImg: {
         type: String,        
       },
+      petUrgent: {
+        type: Number,
+        default: 0
+      }
 })
 
 module.exports = mongoose.model('Pet', PetSchema);

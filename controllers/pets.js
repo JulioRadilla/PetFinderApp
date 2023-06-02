@@ -46,6 +46,15 @@ module.exports = {
         }
 
     },
+    addUrgent: async (req,res) =>{
+        try{
+           await Pet.findOneAndUpdate({_id: req.body.petIdFromJSFile}, { petUrgent: petUrgent++})
+           console.log('Added One Urgent')
+           response.json('Urgent Added ')
+        } catch(err) {
+            console.log(err)
+        }
+    },
     deletePet: async (req, res)=>{
         console.log(req.body.petIdFromJSFile)
         try{
