@@ -47,10 +47,15 @@ module.exports = {
 
     },
     addUrgent: async (req,res) =>{
-        try{
-           await Pet.findOneAndUpdate({_id: req.body.petIdFromJSFile}, { petUrgent: petUrgent++})
+        try{            
+            await Pet.findOneAndUpdate(
+                {_id: req.body.petIdFromJSFile },
+                { $inc: { petUrgent: 1 } },
+                { new: true }
+            )    
+
            console.log('Added One Urgent')
-           response.json('Urgent Added ')
+           res.json('Urgent Added ')
         } catch(err) {
             console.log(err)
         }

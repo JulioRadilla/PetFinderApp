@@ -31,13 +31,14 @@ Array.from(urgentBtn).forEach((el)=>{
 })
 
 async function addUrgent(){
-    const petId = this.parentNode.dataset.id
+    const petId = this.parentNode.dataset.id    
+    console.log(petId)
     try{
         const response = await fetch('/pets/addUrgent', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-              'petIDFromJSFile': petId
+              'petIdFromJSFile': petId
             })
           })
         const data = await response.json()
