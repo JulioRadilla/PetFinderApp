@@ -4,7 +4,7 @@ const upload = require('../utils/multer')
 
 module.exports = {
     getPets: async (req,res) => {
-        console.log(req);
+        /*console.log(req);*/
         try{
             const petItems  = await Pet.find({});
             res.render('pets.ejs', {pets: petItems})
@@ -47,6 +47,7 @@ module.exports = {
 
     },
     addUrgent: async (req,res) =>{
+        console.log(req.body.petIdFromJSFile)
         try{            
             await Pet.findOneAndUpdate(
                 {_id: req.body.petIdFromJSFile },

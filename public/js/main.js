@@ -32,7 +32,6 @@ Array.from(urgentBtn).forEach((el)=>{
 
 async function addUrgent(){
     const petId = this.parentNode.dataset.id    
-    console.log(petId)
     try{
         const response = await fetch('/pets/addUrgent', {
             method: 'put',
