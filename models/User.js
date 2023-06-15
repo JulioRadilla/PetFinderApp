@@ -25,12 +25,17 @@ const UserSchema = new mongoose.Schema({
 
 
 // Helper method for validating user's password.
+UserSchema.methods.comparePassword = function comparePassword(candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password);
+};
 
-UserSchema.methods.comparePassword = function comparePassword(candidatePassword, cb) {
+/*
+UserSchema.methods.comparePassword = function comparePassword(candidatePassword,cb) {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-    cb(err, isMatch)
+    cb(err,isMatch)
   })
 }
+*/
 
 
 module.exports = mongoose.model('User', UserSchema)

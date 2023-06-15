@@ -2,6 +2,7 @@ const passport = require('passport')
 const validator = require('validator')
 const User = require('../models/User')
 
+
  exports.getLogin = (req, res) => {
     if (req.user) {
       return res.redirect('/pets')
@@ -55,7 +56,53 @@ const User = require('../models/User')
       title: 'Create Account'
     })
   }
+
+  exports.postSignup = async (req, res, next) => {
+    try {
+      const validationErrors = [];
+      if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' });
+      if (!validator.isLength(req.body.password, { min: 8 })) validationErrors.push({ msg: 'Password must be at least 8 characters long' });
+      if (req.body.password !== req.body.confirmPassword) validationErrors.push({ msg: 'Passwords do not match' });
   
+      if (validationErrors.length) {
+        req.flash('errors', validationErrors);
+        return res.redirect('../signup');
+      }
+  
+      req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false });
+  
+      const existingUser = await User.findOne({
+        $or: [
+          { email: req.body.email },
+          { userName: req.body.userName }
+        ]
+      });
+  
+      if (existingUser) {
+        req.flash('errors', { msg: 'Account with that email address or username already exists.' });
+        return res.redirect('../signup');
+      }
+  
+      const user = new User({
+        userName: req.body.userName,
+        email: req.body.email,
+        password: req.body.password
+      });
+  
+      await user.save();
+  
+      req.logIn(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+        res.redirect('/pets');
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+  
+  /*
   exports.postSignup = (req, res, next) => {
     const validationErrors = []
     if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' })
@@ -73,7 +120,7 @@ const User = require('../models/User')
       email: req.body.email,
       password: req.body.password
     })
-  
+    
     User.findOne({$or: [
       {email: req.body.email},
       {userName: req.body.userName}
@@ -92,5 +139,6 @@ const User = require('../models/User')
           res.redirect('/pets')
         })
       })
-    })
+    }) 
   }
+  */
