@@ -6,7 +6,7 @@ module.exports = {
     getPets: async (req,res) => {
         /*console.log(req);*/
         try{
-            const petItems  = await Pet.find({});
+            const petItems  = await Pet.find({}).sort({ createdAt: "desc"}).lean();
             res.render('pets.ejs', {pets: petItems})
         } catch(err) {
             console.log(err)
