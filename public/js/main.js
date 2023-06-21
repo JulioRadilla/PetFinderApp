@@ -48,3 +48,28 @@ async function addUrgent(){
         console.log(err)
     }
 }
+
+//Found Button functionality
+const foundBtn = document.querySelectorAll('.found');
+
+Array.from(foundBtn).forEach((el)=>{
+    el.addEventListener('click', addFound)
+})
+
+async function addFound(){
+    const petId = this.parentNode.dataset.id    
+    try{
+        const response = await fetch('/pets/addFoundFeature', {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              'petIdFromJSFile': petId
+            })
+          })
+        const data = await response.json()
+        console.log(data)
+        location.reload()
+    }catch(err){
+        console.log(err)
+    }
+}

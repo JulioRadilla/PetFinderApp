@@ -71,4 +71,17 @@ module.exports = {
             console.log(err)
         }
     },
+    addFoundFeature: async(req,res) => {
+        console.log(req.body.petIdFromJSFile)
+        try{
+            await Pet.findOneAndUpdate(
+                {_id: req.body.petIdFromJSFile },
+                {petFound: true}
+            )
+            console.log('Added Found to Pet')
+            res.json('Added Found to Pet')
+        }catch(err){
+            console.log(err)
+        }
+    }
 }

@@ -35,7 +35,11 @@ const PetSchema = new mongoose.Schema({
       createdAt: {
         type: Date,
         default: Date.now,
-      }
+      },
+      petFound: {
+        type: Boolean,
+        default: false
+      },
 })
 
 module.exports = mongoose.model('Pet', PetSchema);

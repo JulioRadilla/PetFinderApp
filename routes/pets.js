@@ -11,4 +11,6 @@ router.put('/addUrgent', petsController.addUrgent);
 
 router.delete('/deletePet', petsController.deletePet);
 
+router.put('/addFoundFeature', petsController.addFoundFeature);
+
 module.exports = router;
