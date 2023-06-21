@@ -1,13 +1,22 @@
 const Pet = require('../models/Pet')
+const User = require('../models/User')
 const cloudinary = require('../utils/cloudinary')
 const upload = require('../utils/multer')
 
 module.exports = {
     getPets: async (req,res) => {
-        /*console.log(req);*/
+        const userId = req.user._id        
         try{
-            const petItems  = await Pet.find({}).sort({ createdAt: "desc"}).lean();
-            res.render('pets.ejs', {pets: petItems})
+            const user = await User.findById({ _id: userId })
+
+            const petItems  = await Pet.find({})
+                .populate('petOwner')
+                .sort({ createdAt: "desc"})
+                .lean();
+            res.render('pets.ejs', {
+                pets: petItems,
+                user,
+            })
         } catch(err) {
             console.log(err)
         }
@@ -32,6 +41,7 @@ module.exports = {
                             petColor: req.body.petColor, 
                             petLocation: req.body.petLocation,
                             petImg: imageUrl,
+                            petOwner: req.body.petOwner,
                         })
                         console.log('Lost pet has been added!')
                         res.redirect('/pets')
@@ -61,6 +71,15 @@ module.exports = {
             console.log(err)
         }
     },
+
+    addComment: async (req, res) => {
+        try{
+            console.log(req.body.comment)
+        } catch (err) {
+            console.error(err)
+        }        
+    },
+
     deletePet: async (req, res)=>{
         console.log(req.body.petIdFromJSFile)
         try{

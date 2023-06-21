@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const PetSchema = new mongoose.Schema({
-    petSpecies: {
+      petSpecies: {
         type: String,
         required: true
       },
@@ -40,6 +40,10 @@ const PetSchema = new mongoose.Schema({
         type: Boolean,
         default: false
       },
+      petOwner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },      
 })
 
 module.exports = mongoose.model('Pet', PetSchema);

@@ -13,4 +13,6 @@ router.delete('/deletePet', petsController.deletePet);
 
 router.put('/addFoundFeature', petsController.addFoundFeature);
 
+router.post('/addComment', petsController.addComment);
+
 module.exports = router;

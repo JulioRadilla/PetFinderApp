@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="/public/css/style.css">
     <script src="/public/js/main.js" ></script>
 </head>
-<body>
+<body>    
     <h1>Pets Lost</h1>
+    <h2>Welcome <%= user.userName %></h2>
     <ul>
     <% pets.forEach( el => { %>
-            <li class='petItem' data-id='<%=el._id%>'>
+            <li class='petItem' data-id='<%=el._id%>'>                
                 <!-- Useful for when the pet is found we can use the same logic <span class='<%= el.found === true ? 'completed' : 'not'%>'><%= el.todo %></span> -->
                 <span>Species: <%=el.petSpecies%></span>
                 <span>Name: <%=el.petName%></span>
@@ -21,9 +22,16 @@
                 <span>Color: <%=el.petColor%></span>
                 <span>Location: <%=el.petLocation%></span>
                 <span>Img: <img src="<%= el.petImg %>" width="90" height="90" alt="pet-image"></span>
+                <span>Owner: <%=el.petOwner.userName%></span>
                 <span><%= el.petUrgent %></span>
                 <span class='urgent'> Urgent </span>
-                <span class='del'> Delete </span>                
+                <span class='del'> Delete </span> 
+                
+                <form action="/pets/addComment" method="POST">
+                    <textarea name="comment" rows="10" cols="10" placeholder="Write a comment.."></textarea>
+                    <button type="submit">Submit</button>
+                </form>                    
+                
                 <% if (!el.petFound){ %>
                     <span class="found"> Found </span>
                 <%}%>
@@ -37,6 +45,7 @@
     <form action="/pets/createPet" method="POST" enctype="multipart/form-data">
         <h1>Have you lost a Pet?</h1>
         <h1>Fill in the form below to help find your furry friend!</h1>
+        <input type="hidden" name="petOwner" value="<%=user._id%>">
         <h2>Species: <input type="text" placeholder="pets species" name="petSpecies"></h2>
         <h2>Name: <input type="text" placeholder="pets name" name="petName"></h2>
         <h2>Gender: <input type="text" placeholder="pets gender" name="petGender"></h2>
