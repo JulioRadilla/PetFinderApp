@@ -30,11 +30,11 @@
                 <form action="/pets/addComment" method="POST">
                     <textarea name="comment" rows="10" cols="10" placeholder="Write a comment.."></textarea>
                     <button type="submit">Submit</button>
-                </form>                    
-                
-                <% if (!el.petFound){ %>
-                    <span class="found"> Found </span>
-                <%}%>
+                </form> 
+                <% if (user._id.toString() === el.petOwner._id.toString() && !el.petFound) { %>
+                    <span class="found">Found</span>
+                <% } %>
+
                 <% if (el.petFound){ %>
                     <span class="donate"> Donate </span>
                 <%}%>

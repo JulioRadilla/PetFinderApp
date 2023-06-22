@@ -4,9 +4,9 @@ const cloudinary = require('../utils/cloudinary')
 const upload = require('../utils/multer')
 
 module.exports = {
-    getPets: async (req,res) => {
-        const userId = req.user._id        
+    getPets: async (req,res) => { 
         try{
+            const userId = req.user._id
             const user = await User.findById({ _id: userId })
 
             const petItems  = await Pet.find({})
@@ -58,7 +58,7 @@ module.exports = {
     },
     addUrgent: async (req,res) =>{
         console.log(req.body.petIdFromJSFile)
-        try{            
+        try{           
             await Pet.findOneAndUpdate(
                 {_id: req.body.petIdFromJSFile },
                 { $inc: { petUrgent: 1 } },
